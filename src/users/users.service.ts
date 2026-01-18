@@ -23,8 +23,17 @@ export class UsersService {
     if (existinguser) {
       throw new ConflictException('User alrewady exixts');
     }
-    const user = new this.userModel(registerdto);
-    return user.save();
+    //this one
+    return await this.userModel.create({
+      fname: registerdto.fname,
+      lname: registerdto.lname,
+      email: registerdto.email,
+      phone: registerdto.phone,
+      password: registerdto.password,
+    });
+    //or this one
+    // const user = new this.userModel(registerdto);
+    // return user.save();
   }
 
   async loginUser(logindto: LoginDto) {
