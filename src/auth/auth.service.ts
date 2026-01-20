@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Get, Injectable, UseGuards, Req } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { RegisterDto } from './dto/registerUser.dto';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dto/loginUser.dto';
 import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from './auth.guard';
 @Injectable()
 export class AuthService {
   constructor(
@@ -23,7 +24,7 @@ export class AuthService {
     const payload = { sub: (await ans)._id };
     const token = await this.jwtService.signAsync(payload);
     console.log(token);
-    return token;
+    return { acess_token: token };
   }
   async login(logindto: LoginDto) {
     // const hashpassword = await bcrypt.hash(logindto.password, 10);

@@ -55,4 +55,8 @@ export class UsersService {
       message: `${findUser.fname} is sucessfully login and your email is ${findUser.email}`,
     };
   }
+
+  async getUserById(id: string) {
+    return await this.userModel.findOne({ _id: id });
+  }
 }
